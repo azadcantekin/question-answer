@@ -1,8 +1,6 @@
 package com.act.questionanswer.model;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.Id;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
@@ -13,6 +11,14 @@ import lombok.NoArgsConstructor;
 @NoArgsConstructor
 public class Question {
     @Id
+    @SequenceGenerator(
+            name = "user_id_sequence",
+            sequenceName = "user_id_sequence"
+    )
+    @GeneratedValue(
+            strategy = GenerationType.SEQUENCE,
+            generator = "user_id_sequence"
+    )
     private Integer id;
     private String title;
     private String subtitle;
