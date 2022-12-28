@@ -30,4 +30,6 @@ public class User {
     private Gender gender ;
     @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Question> questionList;
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    private List<Answer> answerList;
 }

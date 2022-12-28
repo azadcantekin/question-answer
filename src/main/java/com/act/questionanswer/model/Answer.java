@@ -5,28 +5,25 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
-import java.util.List;
-
 @Entity
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
-public class Question {
+public class Answer {
     @Id
     @SequenceGenerator(
-            name = "question_id_sequence",
-            sequenceName = "question_id_sequence"
+            name = "answer_id_sequence",
+            sequenceName = "answer_id_sequence"
     )
     @GeneratedValue(
             strategy = GenerationType.SEQUENCE,
-            generator = "question_id_sequence"
+            generator = "answer_id_sequence"
     )
     private Integer id;
-    private String title;
-    private String subtitle;
-    private String message;
+    private String comment;
+    private String attachmentUrl;
+    @ManyToOne
+    private Question question;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
-    private List<Answer> answerList;
 }
