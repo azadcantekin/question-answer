@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "t_question")
 public class Question {
     @Id
     @SequenceGenerator(

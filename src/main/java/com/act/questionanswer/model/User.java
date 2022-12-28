@@ -11,6 +11,7 @@ import java.util.List;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "t_user")
 public class User {
     @Id
     @SequenceGenerator(
@@ -28,8 +29,8 @@ public class User {
     private String password;
     private List<Role> roleList;
     private Gender gender ;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Question> questionList;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 }

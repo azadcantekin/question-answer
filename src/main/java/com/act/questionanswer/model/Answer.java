@@ -9,6 +9,7 @@ import lombok.NoArgsConstructor;
 @Data
 @AllArgsConstructor
 @NoArgsConstructor
+@Table(name = "t_answer")
 public class Answer {
     @Id
     @SequenceGenerator(
