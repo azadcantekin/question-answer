@@ -28,6 +28,6 @@ public class Question {
     private String message;
     @ManyToOne
     private User user;
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 }

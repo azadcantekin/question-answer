@@ -1,5 +1,6 @@
 package com.act.questionanswer.model;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Data;
@@ -12,6 +13,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_user")
+@JsonIgnoreProperties({"hibernateLazyInitializer","handler","questionList","answerList"})
 public class User {
     @Id
     @SequenceGenerator(
