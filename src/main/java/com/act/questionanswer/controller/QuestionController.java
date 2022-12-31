@@ -19,7 +19,7 @@ public class QuestionController {
     }
 
     @GetMapping("/get-question")
-    public ResponseEntity<?> getQuestion(@PathVariable Integer id){
+    public ResponseEntity<?> getQuestion(@RequestParam Integer id){
         return ResponseEntity.ok(questionService.getQuestion(id));
     }
     @GetMapping("/get-all-question")
@@ -27,17 +27,17 @@ public class QuestionController {
         return ResponseEntity.ok(questionService.getAllQuestion());
     }
     @GetMapping("/get-all-question-by-user-id")
-    public ResponseEntity<?> getAllQuestionByUserId(@PathVariable Integer id){
+    public ResponseEntity<?> getAllQuestionByUserId(@RequestParam Integer id){
         return ResponseEntity.ok(questionService.getAllQuestionByUserId(id));
     }
 
     @PutMapping("/get-question")
-    public ResponseEntity<?> updateQuestion(@PathVariable Integer id , @RequestBody Question updatedQuestion){
+    public ResponseEntity<?> updateQuestion(@RequestParam Integer id , @RequestBody Question updatedQuestion){
         return ResponseEntity.ok(questionService.updateQuestion(id,updatedQuestion));
     }
 
     @DeleteMapping("/delete-question")
-    public ResponseEntity<?> deleteQuestion(@PathVariable Integer id){
+    public ResponseEntity<?> deleteQuestion(@RequestParam Integer id){
         questionService.deleteQuestion(id);
         return null;
     }

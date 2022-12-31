@@ -20,22 +20,22 @@ public class AnswerController {
     }
 
     @GetMapping("/get-answer")
-    public ResponseEntity<?> getAnswer(@PathVariable Integer id){
+    public ResponseEntity<?> getAnswer(@RequestParam Integer id){
         return ResponseEntity.ok(answerService.getAnswer(id));
     }
 
     @GetMapping("/get-all-answer-by-question-id")
-    public ResponseEntity<?> getAllAnswerByQuestionId(@PathVariable Integer id){
+    public ResponseEntity<?> getAllAnswerByQuestionId(@RequestParam Integer id){
         return ResponseEntity.ok(answerService.getAllAnswerByQuestionId(id));
     }
 
     @GetMapping("/get-all-answer-by-user-id")
-    public ResponseEntity<?> getAllAnswerByUser(@PathVariable Integer id){
+    public ResponseEntity<?> getAllAnswerByUser(@RequestParam Integer id){
         return ResponseEntity.ok(answerService.getAllAnswerByUserId(id));
     }
 
     @DeleteMapping("/delete-question")
-    public ResponseEntity<?> deleteQuestion(@PathVariable Integer id){
+    public ResponseEntity<?> deleteQuestion(@RequestParam Integer id){
         answerService.deleteAnswer(id);
         return null;
     }

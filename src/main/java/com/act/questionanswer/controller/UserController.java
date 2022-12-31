@@ -20,7 +20,7 @@ public class UserController {
         return ResponseEntity.ok(userService.createUser(user));
     }
     @GetMapping("/get-user")
-    public ResponseEntity<?> getUser(@PathVariable Integer id){
+    public ResponseEntity<?> getUser(@RequestParam Integer id){
         return ResponseEntity.ok(userService.getUserById(id));
     }
     @PutMapping("/update-user")
@@ -28,7 +28,7 @@ public class UserController {
         return ResponseEntity.ok(userService.updateUser(id,updatedUser));
     }
     @DeleteMapping("/delete-user")
-    public void deleteUser( @PathVariable Integer id){
+    public void deleteUser( @RequestParam Integer id){
        userService.deleteUser(id);
     }
 }
