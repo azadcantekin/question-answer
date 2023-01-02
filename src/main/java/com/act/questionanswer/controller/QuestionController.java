@@ -1,6 +1,7 @@
 package com.act.questionanswer.controller;
 
-import com.act.questionanswer.model.Question;
+
+import com.act.questionanswer.model.dto.QuestionDto;
 import com.act.questionanswer.service.QuestionService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -14,8 +15,8 @@ public class QuestionController {
     private final QuestionService questionService;
 
     @PostMapping("/add-question")
-    public ResponseEntity<?> addQuestion(@RequestBody Question question){
-       return ResponseEntity.ok(questionService.addQuestion(question));
+    public ResponseEntity<?> addQuestion(@RequestBody QuestionDto questionDto){
+       return ResponseEntity.ok(questionService.addQuestion(questionDto));
     }
 
     @GetMapping("/get-question")
@@ -32,8 +33,8 @@ public class QuestionController {
     }
 
     @PutMapping("/get-question")
-    public ResponseEntity<?> updateQuestion(@RequestParam Integer id , @RequestBody Question updatedQuestion){
-        return ResponseEntity.ok(questionService.updateQuestion(id,updatedQuestion));
+    public ResponseEntity<?> updateQuestion(@RequestParam Integer id , @RequestBody QuestionDto updatedQuestionDto){
+        return ResponseEntity.ok(questionService.updateQuestion(id,updatedQuestionDto));
     }
 
     @DeleteMapping("/delete-question")

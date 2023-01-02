@@ -1,10 +1,11 @@
 package com.act.questionanswer.service.impl;
 
 import com.act.questionanswer.model.User;
+import com.act.questionanswer.model.dto.UserDto;
 import com.act.questionanswer.repository.UserRepository;
 import com.act.questionanswer.service.UserService;
+import com.act.questionanswer.utilities.mapper.ModelConverterService;
 import lombok.RequiredArgsConstructor;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
@@ -13,28 +14,32 @@ import java.util.Optional;
 @RequiredArgsConstructor
 public class UserServiceImpl implements UserService {
 
-    @Autowired
     private final UserRepository userRepository;
+    private final ModelConverterService converterService;
 
     @Override
-    public User createUser(User user) {
-        return userRepository.save(user);
+    public UserDto createUser(UserDto userDto) {
+            userRepository.save(converterService.convertToType(userDto, User.class));
+            return userDto;
+
     }
 
     @Override
-    public User updateUser(Integer id , User updatedUser) {
+    public UserDto updateUser(Integer id , UserDto updatedUserDto) {
         Optional<User> user = userRepository.findById(id);
         User userOptional= user.get();
-        userOptional.setFirstName(updatedUser.getFirstName());
-        userOptional.setLastName(updatedUser.getLastName());
-        userOptional.setEmail(updatedUser.getEmail());
+        userOptional.setFirstName(updatedUserDto.getFirstName());
+        userOptional.setLastName(updatedUserDto.getLastName());
+        userOptional.setEmail(updatedUserDto.getEmail());
         userRepository.save(userOptional);
-        return userOptional;
+        return updatedUserDto;
     }
 
     @Override
-    public Optional<User> getUserById(Integer id) {
-        return userRepository.findById(id);
+    public UserDto getUserById(Integer id) {
+        Optional<User> user = userRepository.findById(id);
+            return converterService.convertToType(user, UserDto.class);
+
     }
 
     @Override

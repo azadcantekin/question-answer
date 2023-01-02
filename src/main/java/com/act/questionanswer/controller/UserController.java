@@ -1,6 +1,7 @@
 package com.act.questionanswer.controller;
 
-import com.act.questionanswer.model.User;
+
+import com.act.questionanswer.model.dto.UserDto;
 import com.act.questionanswer.service.UserService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.HttpStatus;
@@ -16,16 +17,16 @@ public class UserController {
 
     @PostMapping("/add-user")
     @ResponseStatus(HttpStatus.CREATED)
-    public ResponseEntity<?> addUser(@RequestBody User user){
-        return ResponseEntity.ok(userService.createUser(user));
+    public ResponseEntity<?> addUser(@RequestBody UserDto userDto){
+        return ResponseEntity.ok(userService.createUser(userDto));
     }
     @GetMapping("/get-user")
-    public ResponseEntity<?> getUser(@RequestParam Integer id){
+    public ResponseEntity<?> getUser(@RequestParam Integer id) throws Exception {
         return ResponseEntity.ok(userService.getUserById(id));
     }
     @PutMapping("/update-user")
-    public ResponseEntity<?> updateUser(@RequestBody User updatedUser , @PathVariable Integer id){
-        return ResponseEntity.ok(userService.updateUser(id,updatedUser));
+    public ResponseEntity<?> updateUser(@RequestBody UserDto updatedUserDto , @PathVariable Integer id){
+        return ResponseEntity.ok(userService.updateUser(id,updatedUserDto));
     }
     @DeleteMapping("/delete-user")
     public void deleteUser( @RequestParam Integer id){

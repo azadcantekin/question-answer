@@ -1,14 +1,12 @@
 package com.act.questionanswer.service;
 
-import com.act.questionanswer.model.User;
-
-import java.util.Optional;
+import com.act.questionanswer.model.dto.UserDto;
 
 public interface UserService {
 
-    User createUser(User user);
-    User updateUser(Integer id , User updatedUser);
-    Optional<User> getUserById(Integer id);
+    UserDto createUser(UserDto userDto);
+    UserDto updateUser(Integer id , UserDto updatedUserDto);
+    UserDto getUserById(Integer id) throws Exception;
     void deleteUser(Integer id);
 
 }

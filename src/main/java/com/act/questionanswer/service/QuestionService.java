@@ -1,16 +1,15 @@
 package com.act.questionanswer.service;
 
 
-import com.act.questionanswer.model.Question;
+import com.act.questionanswer.model.dto.QuestionDto;
 
 import java.util.List;
-import java.util.Optional;
 
 public interface QuestionService {
-   Question addQuestion(Question question);
-   Optional<Question> getQuestion(Integer id);
-   List<Question> getAllQuestion();
-   List<Question> getAllQuestionByUserId(Integer id);
-   Question updateQuestion(Integer id , Question question);
+   QuestionDto addQuestion(QuestionDto questionDto);
+   QuestionDto getQuestion(Integer id);
+   List<QuestionDto> getAllQuestion();
+   List<QuestionDto> getAllQuestionByUserId(Integer id);
+   QuestionDto updateQuestion(Integer id , QuestionDto questionDto);
    void deleteQuestion(Integer id);
 }

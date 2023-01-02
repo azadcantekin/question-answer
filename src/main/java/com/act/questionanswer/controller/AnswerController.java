@@ -1,6 +1,7 @@
 package com.act.questionanswer.controller;
 
-import com.act.questionanswer.model.Answer;
+
+import com.act.questionanswer.model.dto.AnswerDto;
 import com.act.questionanswer.service.AnswerService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.http.ResponseEntity;
@@ -15,8 +16,8 @@ public class AnswerController {
 
 
     @PostMapping("/add-answer")
-    public ResponseEntity<?> addAnswer(@RequestBody Answer answer){
-        return ResponseEntity.ok(answerService.addAnswer(answer));
+    public ResponseEntity<?> addAnswer(@RequestBody AnswerDto answerDto){
+        return ResponseEntity.ok(answerService.addAnswer(answerDto));
     }
 
     @GetMapping("/get-answer")
