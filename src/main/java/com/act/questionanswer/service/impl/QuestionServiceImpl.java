@@ -46,7 +46,14 @@ public class QuestionServiceImpl implements QuestionService {
 
     @Override
     public QuestionDto updateQuestion(Integer id, QuestionDto updatedQuestionDto) {
-        return null;
+        Optional<Question> question = Optional.ofNullable(questionRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("Question not found", null)));
+       Question updatedQuestion = question.get();
+       updatedQuestion.setTitle(updatedQuestionDto.getTitle());
+       updatedQuestion.setSubtitle(updatedQuestionDto.getSubtitle());
+       updatedQuestion.setMessage(updatedQuestionDto.getMessage());
+       questionRepository.save(updatedQuestion);
+        return updatedQuestionDto;
     }
 
     @Override
