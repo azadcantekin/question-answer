@@ -1,5 +1,7 @@
 package com.act.questionanswer.service.impl;
 
+
+import com.act.questionanswer.exception.ResourceNotFoundException;
 import com.act.questionanswer.model.User;
 import com.act.questionanswer.model.dto.UserDto;
 import com.act.questionanswer.repository.UserRepository;
@@ -9,6 +11,8 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
+
+
 
 @Service
 @RequiredArgsConstructor
@@ -25,9 +29,10 @@ public class UserServiceImpl implements UserService {
     }
 
     @Override
-    public UserDto updateUser(Integer id , UserDto updatedUserDto) {
-        Optional<User> user = userRepository.findById(id);
-        User userOptional= user.get();
+    public UserDto updateUser(Integer id, UserDto updatedUserDto) {
+        Optional<User> user = Optional.ofNullable(userRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User not found", null)));
+        User userOptional = user.get();
         userOptional.setFirstName(updatedUserDto.getFirstName());
         userOptional.setLastName(updatedUserDto.getLastName());
         userOptional.setEmail(updatedUserDto.getEmail());
@@ -37,13 +42,17 @@ public class UserServiceImpl implements UserService {
 
     @Override
     public UserDto getUserById(Integer id) {
-        Optional<User> user = userRepository.findById(id);
-            return converterService.convertToType(user, UserDto.class);
+        User user = userRepository.findById(id).orElseThrow(
+                () -> new ResourceNotFoundException("User not found", null));
+        return converterService.convertToType(user, UserDto.class);
 
     }
 
     @Override
     public void deleteUser(Integer id) {
-    userRepository.deleteById(id);
+
+        User user = userRepository.findById(id).orElseThrow(
+                ()-> new ResourceNotFoundException("User not found",null));
+        userRepository.deleteById(user.getId());
     }
 }

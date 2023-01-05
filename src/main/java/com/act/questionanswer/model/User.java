@@ -31,8 +31,8 @@ public class User {
     private String password;
     private List<Role> roleList;
     private Gender gender ;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Question> questionList;
-    @OneToMany(mappedBy = "user",cascade = CascadeType.REMOVE)
+    @OneToMany(mappedBy = "user",cascade = CascadeType.ALL)
     private List<Answer> answerList;
 }
