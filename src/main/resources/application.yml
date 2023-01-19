@@ -2,7 +2,7 @@ server:
   port: 8081
 spring:
   application:
-    name: product
+    name: question-answer
   datasource:
     password: password
     url: jdbc:postgresql://localhost:5432/question_answer
