@@ -32,8 +32,9 @@ public class User {
     private List<Role> roleList;
     @Enumerated
     private Gender gender ;
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE,CascadeType.REMOVE} , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL} , fetch = FetchType.LAZY)
     private List<Question> questionList;
-    @OneToMany(mappedBy = "user",cascade = {CascadeType.MERGE,CascadeType.REMOVE} , fetch = FetchType.LAZY)
+    @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL} , fetch = FetchType.LAZY)
     private List<Answer> answerList;
+
 }

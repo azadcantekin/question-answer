@@ -25,6 +25,6 @@ public class Answer {
     private String attachmentUrl;
     @ManyToOne()
     private Question question;
-    @ManyToOne
+    @ManyToOne()
     private User user;
 }
