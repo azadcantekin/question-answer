@@ -5,13 +5,11 @@ import com.act.questionanswer.exception.ResourceNotFoundException;
 import com.act.questionanswer.model.User;
 import com.act.questionanswer.model.dto.UserDto;
 import com.act.questionanswer.repository.UserRepository;
-import com.act.questionanswer.service.UserService;
 import com.act.questionanswer.utilities.mapper.ModelConverterService;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 
 import java.util.Optional;
-
 
 
 @Service
@@ -51,7 +49,7 @@ public class UserServiceImpl implements UserService {
     @Override
     public void deleteUser(Integer id) {
         User user = userRepository.findById(id).orElseThrow(
-                ()-> new ResourceNotFoundException("User not found",null));
+                () -> new ResourceNotFoundException("User not found", null));
         userRepository.deleteById(user.getId());
     }
 }
