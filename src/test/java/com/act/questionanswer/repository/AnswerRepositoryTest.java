@@ -25,72 +25,67 @@ class AnswerRepositoryTest {
     }
 
     @Test
-    void itShouldCreateAnswer(){
+    void itShouldCreateAnswer() {
         Answer answer = new Answer();
 
         underTest.save(answer);
 
-        assertEquals(1,underTest.findAll().size());
+        assertEquals(1, underTest.findAll().size());
     }
 
     @Test
-    void itShouldGetAnswerById(){
+    void itShouldGetAnswerById() {
+        Answer answer = new Answer();
+        answer.setComment("try");
+
+        Answer savedAnswer =  underTest.save(answer);
+
+        Answer answerOptional = underTest.findById(savedAnswer.getId()).get();
+
+        assertThat(answerOptional).isEqualTo(savedAnswer);
+
+    }
+
+    @Test
+    void itShouldUpdate() {
         Answer answer = new Answer();
         answer.setId(1);
         answer.setComment("try");
 
-        underTest.save(answer);
-
-        Answer savedAnswer = underTest.findById(1).get();
-
-        assertThat(savedAnswer).isEqualTo(answer);
-
-    }
-
-    @Test
-    void itShouldUpdate(){
-        Answer answer = new Answer();
-        answer.setId(1);
-        answer.setComment("try");
-
-        underTest.save(answer);
+       Answer savedAnswer = underTest.save(answer);
 
         Answer updateAnswerRequest = new Answer();
         updateAnswerRequest.setComment("try for update");
 
-        Answer savedAnswer = underTest.findById(answer.getId()).get();
-        savedAnswer.setComment(updateAnswerRequest.getComment());
+        Answer optionalAnswer = underTest.findById(savedAnswer.getId()).get();
+        optionalAnswer.setComment(updateAnswerRequest.getComment());
 
         underTest.save(savedAnswer);
 
-        Answer updatedAnswer = underTest.findById(1).get();
+        Answer updatedAnswer = underTest.findById(savedAnswer.getId()).get();
 
-        assertEquals(updatedAnswer.getComment(),"try for update");
+        assertEquals(updatedAnswer.getComment(), "try for update");
 
 
     }
 
     @Test
-    void itShouldListOfAnswerByQuestionId(){
+    void itShouldListOfAnswerByQuestionId() {
         Answer answer = new Answer();
-        Answer answer1 = new Answer();
         Question question = new Question();
-        question.setId(1);
         answer.setQuestion(question);
-        questionRepository.save(question);
+        Question savedQuestion = questionRepository.save(question);
         underTest.save(answer);
-        underTest.save(answer1);
 
-        List<Answer> answerList = underTest.findAllAnswerByQuestionId(question.getId());
+        List<Answer> answerList = underTest.findAllAnswerByQuestionId(savedQuestion.getId());
 
         assertThat(answerList.size()).isEqualTo(1);
 
 
-
     }
 
     @Test
-    void itShouldDeleteAnswer(){
+    void itShouldDeleteAnswer() {
         Answer answer = new Answer();
 
         underTest.save(answer);

@@ -4,6 +4,7 @@ import com.act.questionanswer.exception.ResourceNotFoundException;
 import com.act.questionanswer.model.User;
 import com.act.questionanswer.model.dto.UserDto;
 import com.act.questionanswer.repository.UserRepository;
+import com.act.questionanswer.service.impl.UserServiceImpl;
 import com.act.questionanswer.utilities.mapper.ModelConverterService;
 import com.act.questionanswer.utilities.mapper.ModelConverterServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

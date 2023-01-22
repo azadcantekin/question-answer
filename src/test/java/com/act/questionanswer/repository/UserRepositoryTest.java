@@ -11,6 +11,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 
+
 import static org.assertj.core.api.Assertions.assertThat;
 
 @DataJpaTest
@@ -18,6 +19,7 @@ class UserRepositoryTest {
 
     @Autowired
     private UserRepository underTest;
+
 
 
     @AfterEach
@@ -45,12 +47,11 @@ class UserRepositoryTest {
     @Test
     void itShouldGetById(){
         User user = new User();
-        user.setId(1);
         user.setFirstName("ACT");
 
-        underTest.save(user);
+        User savedUser = underTest.save(user);
 
-        User userOptional =  underTest.findById(user.getId()).get();
+        User userOptional =  underTest.findById(savedUser.getId()).get();
         assertThat(userOptional)
                .isEqualTo(user);
 
@@ -78,11 +79,11 @@ class UserRepositoryTest {
     @Test
     void itShouldDelete(){
         User user = new User();
-        user.setId(1);
         user.setFirstName("Azad Can");
 
-        underTest.save(user);
-        underTest.deleteById(1);
-        assertThat(underTest.findAll()).hasSize(0);
+        User savedUser =   underTest.save(user);
+
+        underTest.deleteById(savedUser.getId());
+        assertThat(underTest.findAll()).isEmpty();
     }
 }

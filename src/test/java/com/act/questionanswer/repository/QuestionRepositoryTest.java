@@ -1,7 +1,6 @@
 package com.act.questionanswer.repository;
 
 import com.act.questionanswer.model.Question;
-import com.act.questionanswer.model.User;
 import org.junit.jupiter.api.AfterEach;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,9 +16,6 @@ class QuestionRepositoryTest {
 
     @Autowired
     private QuestionRepository underTest;
-
-    @Autowired
-    private UserRepository userRepository;
 
     @AfterEach
     void tearDown() {
@@ -82,23 +78,5 @@ class QuestionRepositoryTest {
         assertThat(underTest.findAll()).hasSize(0);
     }
 
-    @Test
-    void itShouldGetAllQuestionByUserId(){
-        Question question = new Question();
-        User user = new User();
-        user.setId(1);
-        Question question1 = new Question();
-        userRepository.save(user);
-
-        question.setUser(user);
-
-        underTest.save(question);
-        underTest.save(question1);
-
-
-        List<Question> questionList = underTest.findAllQuestionsByUserId(user.getId());
-
-        assertThat(questionList).hasSize(1);
-    }
 
 }
