@@ -45,13 +45,15 @@ class UserRepositoryTest {
     }
 
     @Test
-    void itShouldGetById(){
+    void itShouldGetByEmail(){
         User user = new User();
+        String email = "tekin.act";
         user.setFirstName("ACT");
+        user.setEmail(email);
 
         User savedUser = underTest.save(user);
 
-        User userOptional =  underTest.findById(savedUser.getId()).get();
+        User userOptional =  underTest.findByEmail(savedUser.getEmail()).get();
         assertThat(userOptional)
                .isEqualTo(user);
 

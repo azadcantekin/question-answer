@@ -32,4 +32,14 @@ public class ControllerExceptionHandler  {
 
         return new ResponseEntity<ErrorMessage>(message, HttpStatus.BAD_REQUEST);
     }
+    @ExceptionHandler(InternalServerError.class)
+    public ResponseEntity<ErrorMessage> internalServerException(InternalServerError ex, WebRequest request) {
+        ErrorMessage message = new ErrorMessage(
+                HttpStatus.INTERNAL_SERVER_ERROR.value(),
+                new Date(),
+                ex.getMessage(),
+                request.getDescription(false));
+
+        return new ResponseEntity<ErrorMessage>(message, HttpStatus.INTERNAL_SERVER_ERROR);
+    }
 }

@@ -1,8 +1,10 @@
 package com.act.questionanswer.service;
 
+import com.act.questionanswer.config.security.JwtService;
 import com.act.questionanswer.exception.ResourceNotFoundException;
 import com.act.questionanswer.model.User;
 import com.act.questionanswer.model.dto.UserDto;
+import com.act.questionanswer.model.request.AuthRequest;
 import com.act.questionanswer.repository.UserRepository;
 import com.act.questionanswer.service.impl.UserServiceImpl;
 import com.act.questionanswer.utilities.mapper.ModelConverterService;
@@ -15,6 +17,8 @@ import org.mockito.Captor;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+import org.springframework.security.authentication.AuthenticationManager;
+import org.springframework.security.crypto.password.PasswordEncoder;
 
 import java.util.Optional;
 
@@ -30,13 +34,20 @@ class UserServiceImplTest {
     private UserService underTest;
     @Mock
     private ModelConverterService modelConverterService;
+    @Mock
+    private AuthenticationManager authenticationManager;
+    @Mock
+    private JwtService jwtService ;
+
+    @Mock
+    PasswordEncoder passwordEncoder;
     @Captor
     ArgumentCaptor<User> userArgumentCaptor = ArgumentCaptor.forClass(User.class);
 
     @BeforeEach
     void setUp() {
         modelConverterService = new ModelConverterServiceImpl(new ModelMapper());
-        underTest = new UserServiceImpl(userRepository, modelConverterService);
+        underTest = new UserServiceImpl(userRepository, modelConverterService , authenticationManager , passwordEncoder,jwtService);
 
     }
 
@@ -49,10 +60,12 @@ class UserServiceImplTest {
         user.setEmail("tekin.act@icloud.com");
         user.setPassword("act");
         //when
+        when(passwordEncoder.encode(any())).thenReturn("act");
         UserDto userDto = modelConverterService.convertToType(user, UserDto.class);
         underTest.createUser(userDto);
         //then
         verify(userRepository).save(userArgumentCaptor.capture());
+        verify(passwordEncoder).encode("act");
         User capturedUser = userArgumentCaptor.getValue();
         assertThat(capturedUser).isEqualTo(user);
     }
@@ -74,16 +87,18 @@ class UserServiceImplTest {
     }
 
     @Test
-    void getUserById() throws Exception {
+    void getUserByEmail() throws Exception {
         User user = new User();
-        user.setId(1);
+        String email = "act@gmail.com";
+        AuthRequest request = new AuthRequest("act@gmail.com","password");
         user.setFirstName("act");
         user.setLastName("tekin");
+        user.setEmail(email);
 
-        when(userRepository.findById(1)).thenReturn(Optional.of(user));
-        UserDto result = underTest.getUserById(1);
+        when(userRepository.findByEmail(email)).thenReturn(Optional.of(user));
+        UserDto result = underTest.findByEmail(request);
 
-        verify(userRepository).findById(1);
+        verify(userRepository).findByEmail(email);
 
         assertThat(result)
                 .isEqualTo(modelConverterService.convertToType(user, UserDto.class));
@@ -93,13 +108,13 @@ class UserServiceImplTest {
     @Test
     void willThrownWhenUserNotFound() {
         User user = new User();
-        user.setId(1);
+        user.setEmail("tekin.act");
 
-        assertThatThrownBy(()-> underTest.getUserById(0))
+        assertThatThrownBy(()-> underTest.findByEmail(new AuthRequest()))
                 .isInstanceOf(ResourceNotFoundException.class)
                 .hasMessage("User not found");
 
-        verify(userRepository).findById(any());
+        verify(userRepository).findByEmail(any());
 
     }
 

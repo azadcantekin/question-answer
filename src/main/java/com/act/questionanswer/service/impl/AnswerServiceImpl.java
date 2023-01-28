@@ -1,4 +1,4 @@
-package com.act.questionanswer.service;
+package com.act.questionanswer.service.impl;
 
 import com.act.questionanswer.exception.ResourceNotFoundException;
 import com.act.questionanswer.model.Answer;

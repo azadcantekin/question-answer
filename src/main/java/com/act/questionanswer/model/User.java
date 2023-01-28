@@ -6,6 +6,7 @@ import lombok.AllArgsConstructor;
 import lombok.Data;
 import lombok.NoArgsConstructor;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Entity
@@ -13,7 +14,7 @@ import java.util.List;
 @AllArgsConstructor
 @NoArgsConstructor
 @Table(name = "t_user")
-public class User {
+public class User{
     @Id
     @SequenceGenerator(
             name = "user_id_sequence",
@@ -28,13 +29,14 @@ public class User {
     private String lastName;
     private String email;
     private String password;
-    @Enumerated
-    private List<Role> roleList;
-    @Enumerated
+    @ElementCollection(fetch = FetchType.EAGER)
+    List<Role> roles = new ArrayList<>();
+    @Enumerated(EnumType.STRING)
     private Gender gender ;
     @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL} , fetch = FetchType.LAZY)
     private List<Question> questionList;
     @OneToMany(mappedBy = "user",cascade = {CascadeType.ALL} , fetch = FetchType.LAZY)
     private List<Answer> answerList;
+
 
 }
