@@ -26,8 +26,8 @@ public class Question {
     private String title;
     private String subtitle;
     private String message;
-    @ManyToOne
+    @ManyToOne()
     private User user;
-    @OneToMany(mappedBy = "question",cascade = CascadeType.ALL)
+    @OneToMany(mappedBy = "question",cascade = CascadeType.REMOVE)
     private List<Answer> answerList;
 }

@@ -23,8 +23,8 @@ public class Answer {
     private Integer id;
     private String comment;
     private String attachmentUrl;
-    @ManyToOne
+    @ManyToOne()
     private Question question;
-    @ManyToOne
+    @ManyToOne()
     private User user;
 }

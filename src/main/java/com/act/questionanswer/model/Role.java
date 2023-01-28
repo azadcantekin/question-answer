@@ -1,8 +1,13 @@
 package com.act.questionanswer.model;
 
-public enum Role {
-    ADMIN("ADMIN"),USER("USER");
+import org.springframework.security.core.GrantedAuthority;
 
-    Role(String role) {
+public enum Role implements GrantedAuthority {
+    ADMIN,USER;
+
+
+    @Override
+    public String getAuthority() {
+        return name();
     }
 }

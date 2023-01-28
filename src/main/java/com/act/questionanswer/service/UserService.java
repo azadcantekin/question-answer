@@ -1,14 +1,15 @@
 package com.act.questionanswer.service;
 
-import com.act.questionanswer.model.User;
+import com.act.questionanswer.model.dto.UserDto;
+import com.act.questionanswer.model.request.AuthRequest;
 
-import java.util.Optional;
 
 public interface UserService {
 
-    User createUser(User user);
-    User updateUser(Integer id , User updatedUser);
-    Optional<User> getUserById(Integer id);
+    UserDto createUser(UserDto userDto);
+    UserDto updateUser(Integer id , UserDto updatedUserDto);
+    UserDto findByEmail(AuthRequest authRequest);
+
     void deleteUser(Integer id);
 
 }

@@ -18,6 +18,7 @@ public class UserDto {
     private String password;
     private String gender;
     private String role;
+    private String token ;
     private List<QuestionDto> questionDtoList;
     private List<AnswerDto> answerDtoList;
 
